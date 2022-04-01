@@ -16,6 +16,14 @@ function TodoList() {
     console.log(newTodos);
   };
 
+  const updateTodo = (todoId, newValue) => {
+    if(!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
+    setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item))
+    );
+  };
+
  //todo silme fonksiyonu
   const removeTodo = id => {
       const removeArr = [...todos].filter(todo => todo.id !== id);
@@ -36,11 +44,12 @@ function TodoList() {
 
   return (
     <div>
-      <h1>Bugün planın nedir?</h1>
+      <h1>Bugün için planın nedir?</h1>
       <TodoForm onSubmit={addTodo} />
-      <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/>
+      <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo={updateTodo}/>
     </div>
   );
 }
 
 export default TodoList;
+
